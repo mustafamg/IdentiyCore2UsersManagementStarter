@@ -1,0 +1,83 @@
+﻿@model EditUserViewModel
+@using IdentityUserRoleExample.Models
+@await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit User" })
+<div class="modal-body form-horizontal">
+	<form asp-action="EditUser" role="form">
+
+		<div class="row">
+			<div class="form-group">
+				<label asp-for="Name" class="col-lg-3 col-sm-3 control-label"></label>
+				<div class="col-lg-6">
+					<input asp-for="Name" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label asp-for="Email" class="col-lg-3 col-sm-3 control-label"></label>
+				<div class="col-lg-6">
+					<input asp-for="Email" class="form-control" />
+				</div>
+			</div>
+
+
+
+
+		</div>
+
+	</form>
+	<div class="row">
+		<form asp-controller="User" asp-action="AddUserToRole" method="post">
+			<div class="form-group">
+				<label asp-for="ApplicationRoleId" class="col-lg-3 col-sm-3 control-label"></label>
+				<div class="col-lg-4">
+					<select asp-for="ApplicationRoleId" asp-items="@Model.ApplicationRoles" class="form-control">
+						<option>Please select</option>
+					</select>
+					<input asp-for="Id" />
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-success" type="submit">
+						Add
+					</button>
+				</div>
+			</div>
+		</form>
+
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>Role</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var role in Model.UserRoles)
+				{
+					<tr>
+						<td>@role</td>
+						<td>
+							<a id="deleteUserModal" data-toggle="modal" asp-action="DeleteUserRole" asp-route-username="@Model.Name"
+							   asp-route-role="@role" data-target="#modal-action-delete-user-role" class="btn btn-danger">
+								<i class="glyphicon glyphicon-trash"></i>  Delete
+							</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+	</div>
+</div>
+@await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+
+
+
+
+
+
+
+
+
+
+
+
+

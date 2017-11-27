@@ -1,0 +1,15 @@
+﻿@model UserRoleViewModel
+@using IdentityUserRoleExample.Models
+
+<form asp-controller="User" asp-action="DeleteUserRoleFinish" method="post">
+    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Delete User Role" })
+
+    <div class="modal-body form-horizontal">
+        Are you want to delete @Model.RoleName ?
+    </div>
+	<input asp-for="@Model.UserId" />
+	<input asp-for="@Model.RoleName" />
+
+    @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Delete" })
+</form>
+
